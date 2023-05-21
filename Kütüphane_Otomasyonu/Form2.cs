@@ -23,9 +23,9 @@ namespace Kütüphane_Otomasyonu
             InitializeComponent();
         }
 
-        private void çIKIŞToolStripMenuItem_Click(object sender, EventArgs e)
+        private void Form2_Load(object sender, EventArgs e)
         {
-            Application.Exit();
+            label7.Text = DateTime.Now.ToString();
         }
 
         private void hAKKIMIZDAToolStripMenuItem_Click(object sender, EventArgs e)
@@ -33,58 +33,65 @@ namespace Kütüphane_Otomasyonu
             MessageBox.Show("BU OTOMASYON UYGULAMASI SAKARYA UYGULAMALI BİLİMLER ÜNİVERSİTESİ HENDEK MESLEK YÜKSEKOKULU ÖĞRENCİSİ MUHAMMED CİHAT ALGÜL TARAFINDAN 'GÖRSEL PROGRAMLAMA 2' DERSİ ÖDEVİ OLARAK YAPILMIŞTIR.");
         }
 
+
         private void hESAPMAKİNESİToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("Calc.exe");
+            try
+            {
+                System.Diagnostics.Process.Start("calc.exe");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Bir hata oluştu: " + ex.Message);
+            }
         }
 
-        private void Form2_Load(object sender, EventArgs e)
+        private void nOTDEFTERİToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            label7.Text = DateTime.Now.ToString();
+            try
+            {
+                System.Diagnostics.Process.Start("notepad.exe");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Bir hata oluştu: " + ex.Message);
+            }
         }
 
-        public void kitapListele(string veri)
+        private void pOSTAToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OleDbDataAdapter adaptor = new OleDbDataAdapter(veri,baglanti);
-            DataSet ds = new DataSet();
-            adaptor.Fill(ds);
-            dataGridView1.DataSource = ds.Tables[0];
-        }
-        private void button2_Click(object sender, EventArgs e)
-        {
-            pictureBox1.Visible = false;
-            dataGridView1.Visible = true;
-            kitapListele("select*from Kitap");
+            try
+            {
+                System.Diagnostics.Process.Start("mailto:");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Bir hata oluştu: " + ex.Message);
+            }
         }
 
-        public void emanetListele(string veri)
+        private void sAYAÇToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OleDbDataAdapter adaptor = new OleDbDataAdapter(veri, baglanti);
-            DataSet ds = new DataSet();
-            adaptor.Fill(ds);
-            dataGridView1.DataSource = ds.Tables[0];
+            try
+            {
+                System.Diagnostics.Process.Start("ms-clock:");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Bir hata oluştu: " + ex.Message);
+            }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void tAKVİMToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            pictureBox1.Visible = false;
-            dataGridView1.Visible = true;
-            emanetListele("select*from Emanetler");
-        }
-
-        public void üyeleriListele(string veri)
-        {
-            OleDbDataAdapter adaptor = new OleDbDataAdapter(veri, baglanti);
-            DataSet ds = new DataSet();
-            adaptor.Fill(ds);
-            dataGridView1.DataSource = ds.Tables[0];
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            pictureBox1.Visible = false;
-            dataGridView1.Visible = true;
-            üyeleriListele("select*from Üyeler");
+            try
+            {
+                System.Diagnostics.Process.Start("outlookcal:");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Bir hata oluştu: " + ex.Message);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -96,11 +103,6 @@ namespace Kütüphane_Otomasyonu
             this.Hide();
         }
 
-        private void kİTAPARAToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button4_Click(object sender, EventArgs e)
         {
             Form2 kapat = new Form2();
@@ -110,13 +112,6 @@ namespace Kütüphane_Otomasyonu
             this.Hide();
         }
 
-        private void button3_Click_1(object sender, EventArgs e)
-        {
-            pictureBox1.Visible = false;
-            dataGridView1.Visible = true;
-            emanetListele("select*from Emanetler");
-        }
-
         private void button6_Click(object sender, EventArgs e)
         {
             Form2 kapat = new Form2();
@@ -124,6 +119,11 @@ namespace Kütüphane_Otomasyonu
             Form5 yeni = new Form5();
             yeni.Show();
             this.Hide();
+        }
+
+        private void çIKIŞToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

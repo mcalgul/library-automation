@@ -8,6 +8,6 @@ namespace Kütüphane_Otomasyonu.Properties
 {
     internal class ConnDatebase
     {
-        public static string homeUrl = @"C:\Users\mcaal\OneDrive\Masaüstü\Kutuphane-Otomasyonu\KütüphaneBilgileri.mdb";
+        public static string homeUrl = @"C:\Users\mcaal\OneDrive\Masaüstü\library-automation\KütüphaneBilgileri.mdb";
     }
 }
