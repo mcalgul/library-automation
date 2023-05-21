@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.OleDb;
 using Kütüphane_Otomasyonu.Properties;
@@ -14,9 +7,9 @@ namespace Kütüphane_Otomasyonu
 {
     public partial class Form2 : Form
     {
-        public static string urlDatabase = ConnDatebase.homeUrl;
-        static string baglantiYolu = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + urlDatabase;
-        static OleDbConnection baglanti = new OleDbConnection(baglantiYolu);
+        private static readonly string urlDatabase = ConnDatabase.HomeUrl;  // Veritabanının URL'sini temsil eden bir değişken
+        private static readonly string baglantiYolu = $"Provider=Microsoft.Jet.OLEDB.4.0;Data Source={urlDatabase}";  // Veritabanı bağlantı dizesini temsil eden bir değişken
+        private static readonly OleDbConnection baglanti = new OleDbConnection(baglantiYolu);  // Veritabanı bağlantısını temsil eden bir OleDbConnection nesnesi
 
         public Form2()
         {
@@ -25,105 +18,81 @@ namespace Kütüphane_Otomasyonu
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            label7.Text = DateTime.Now.ToString();
+            label7.Text = DateTime.Now.ToString();  // label7'ye güncel saat ve tarih bilgisini yaz
         }
 
         private void hAKKIMIZDAToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("BU OTOMASYON UYGULAMASI SAKARYA UYGULAMALI BİLİMLER ÜNİVERSİTESİ HENDEK MESLEK YÜKSEKOKULU ÖĞRENCİSİ MUHAMMED CİHAT ALGÜL TARAFINDAN 'GÖRSEL PROGRAMLAMA 2' DERSİ ÖDEVİ OLARAK YAPILMIŞTIR.");
+            DisplayMessage("BU OTOMASYON UYGULAMASI SAKARYA UYGULAMALI BİLİMLER ÜNİVERSİTESİ HENDEK MESLEK YÜKSEKOKULU ÖĞRENCİSİ MUHAMMED CİHAT ALGÜL TARAFINDAN 'GÖRSEL PROGRAMLAMA 2' DERSİ ÖDEVİ OLARAK YAPILMIŞTIR.");  // Bir mesaj kutusuyla hakkımızda bilgisi göster
         }
 
-
-        private void hESAPMAKİNESİToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OpenExternalProcess(string processName) // Erişim Kolaylığı menüsü içerinde bulunan uygulamaları açmak için hazırlanan fonksiyon
         {
             try
             {
-                System.Diagnostics.Process.Start("calc.exe");
+                System.Diagnostics.Process.Start(processName);  // Belirtilen işlemi başlat (harici bir uygulamayı çalıştır)
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Bir hata oluştu: " + ex.Message);
+                DisplayMessage($"Bir hata oluştu: {ex.Message}");  // Bir hata durumunda hatayı göster
             }
+        }
+
+        private void hESAPMAKİNESİToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenExternalProcess("calc.exe");  // Hesap makinesi uygulamasını aç
         }
 
         private void nOTDEFTERİToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-                System.Diagnostics.Process.Start("notepad.exe");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Bir hata oluştu: " + ex.Message);
-            }
+            OpenExternalProcess("notepad.exe");  // Not defteri uygulamasını aç
         }
 
         private void pOSTAToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-                System.Diagnostics.Process.Start("mailto:");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Bir hata oluştu: " + ex.Message);
-            }
+            OpenExternalProcess("mailto:");  // E-posta gönderme işlemi için varsayılan e-posta istemcisini aç
         }
 
         private void sAYAÇToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-                System.Diagnostics.Process.Start("ms-clock:");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Bir hata oluştu: " + ex.Message);
-            }
+            OpenExternalProcess("ms-clock:");  // Saat ve tarih uygulamasını aç
         }
 
         private void tAKVİMToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-                System.Diagnostics.Process.Start("outlookcal:");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Bir hata oluştu: " + ex.Message);
-            }
+            OpenExternalProcess("outlookcal:");  // Takvim uygulamasını aç
+        }
+
+        private void DisplayForm<T>() where T : Form, new()
+        {
+            T yeni = new T();  // Yeni bir form nesnesi oluştur
+            yeni.Show();  // Formu göster
+            this.Hide();  // Şu anki formu gizle
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form2 kapat = new Form2();
-            kapat.Close();
-            Form3 yeni = new Form3();
-            yeni.Show();
-            this.Hide();
+            DisplayForm<Form3>();  // Form3'ü göstermek için DisplayForm fonksiyonunu çağır
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            Form2 kapat = new Form2();
-            kapat.Close();
-            Form4 yeni = new Form4();
-            yeni.Show();
-            this.Hide();
+            DisplayForm<Form4>();  // Form4'ü göstermek için DisplayForm fonksiyonunu çağır
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            Form2 kapat = new Form2();
-            kapat.Close();
-            Form5 yeni = new Form5();
-            yeni.Show();
-            this.Hide();
+            DisplayForm<Form5>();  // Form5'i göstermek için DisplayForm fonksiyonunu çağır
         }
 
         private void çIKIŞToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            Application.Exit();  // Uygulamayı kapat
+        }
+
+        private void DisplayMessage(string message)
+        {
+            MessageBox.Show(message);  // Bir mesaj kutusuyla mesajı göster
         }
     }
 }

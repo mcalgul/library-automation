@@ -22,5 +22,8 @@ namespace Kütüphane_Otomasyonu.Properties {
                 return defaultInstance;
             }
         }
+
+        public string Username { get; internal set; }
+        public string Password { get; internal set; }
     }
 }

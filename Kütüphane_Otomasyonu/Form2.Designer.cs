@@ -33,6 +33,10 @@
             this.hAKKIMIZDAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eRİŞİMKOLAYLIĞIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hESAPMAKİNESİToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nOTDEFTERİToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sAYAÇToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tAKVİMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pOSTAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.çIKIŞToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -43,10 +47,6 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.nOTDEFTERİToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sAYAÇToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tAKVİMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pOSTAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -89,9 +89,37 @@
             // hESAPMAKİNESİToolStripMenuItem
             // 
             this.hESAPMAKİNESİToolStripMenuItem.Name = "hESAPMAKİNESİToolStripMenuItem";
-            this.hESAPMAKİNESİToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hESAPMAKİNESİToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.hESAPMAKİNESİToolStripMenuItem.Text = "HESAP MAKİNESİ";
             this.hESAPMAKİNESİToolStripMenuItem.Click += new System.EventHandler(this.hESAPMAKİNESİToolStripMenuItem_Click);
+            // 
+            // nOTDEFTERİToolStripMenuItem
+            // 
+            this.nOTDEFTERİToolStripMenuItem.Name = "nOTDEFTERİToolStripMenuItem";
+            this.nOTDEFTERİToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.nOTDEFTERİToolStripMenuItem.Text = "NOT DEFTERİ";
+            this.nOTDEFTERİToolStripMenuItem.Click += new System.EventHandler(this.nOTDEFTERİToolStripMenuItem_Click);
+            // 
+            // sAYAÇToolStripMenuItem
+            // 
+            this.sAYAÇToolStripMenuItem.Name = "sAYAÇToolStripMenuItem";
+            this.sAYAÇToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.sAYAÇToolStripMenuItem.Text = "SAYAÇ";
+            this.sAYAÇToolStripMenuItem.Click += new System.EventHandler(this.sAYAÇToolStripMenuItem_Click);
+            // 
+            // tAKVİMToolStripMenuItem
+            // 
+            this.tAKVİMToolStripMenuItem.Name = "tAKVİMToolStripMenuItem";
+            this.tAKVİMToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.tAKVİMToolStripMenuItem.Text = "TAKVİM";
+            this.tAKVİMToolStripMenuItem.Click += new System.EventHandler(this.tAKVİMToolStripMenuItem_Click);
+            // 
+            // pOSTAToolStripMenuItem
+            // 
+            this.pOSTAToolStripMenuItem.Name = "pOSTAToolStripMenuItem";
+            this.pOSTAToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.pOSTAToolStripMenuItem.Text = "POSTA";
+            this.pOSTAToolStripMenuItem.Click += new System.EventHandler(this.pOSTAToolStripMenuItem_Click);
             // 
             // çIKIŞToolStripMenuItem
             // 
@@ -206,34 +234,6 @@
             this.label7.Size = new System.Drawing.Size(80, 17);
             this.label7.TabIndex = 16;
             this.label7.Text = "************";
-            // 
-            // nOTDEFTERİToolStripMenuItem
-            // 
-            this.nOTDEFTERİToolStripMenuItem.Name = "nOTDEFTERİToolStripMenuItem";
-            this.nOTDEFTERİToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.nOTDEFTERİToolStripMenuItem.Text = "NOT DEFTERİ";
-            this.nOTDEFTERİToolStripMenuItem.Click += new System.EventHandler(this.nOTDEFTERİToolStripMenuItem_Click);
-            // 
-            // sAYAÇToolStripMenuItem
-            // 
-            this.sAYAÇToolStripMenuItem.Name = "sAYAÇToolStripMenuItem";
-            this.sAYAÇToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.sAYAÇToolStripMenuItem.Text = "SAYAÇ";
-            this.sAYAÇToolStripMenuItem.Click += new System.EventHandler(this.sAYAÇToolStripMenuItem_Click);
-            // 
-            // tAKVİMToolStripMenuItem
-            // 
-            this.tAKVİMToolStripMenuItem.Name = "tAKVİMToolStripMenuItem";
-            this.tAKVİMToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.tAKVİMToolStripMenuItem.Text = "TAKVİM";
-            this.tAKVİMToolStripMenuItem.Click += new System.EventHandler(this.tAKVİMToolStripMenuItem_Click);
-            // 
-            // pOSTAToolStripMenuItem
-            // 
-            this.pOSTAToolStripMenuItem.Name = "pOSTAToolStripMenuItem";
-            this.pOSTAToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.pOSTAToolStripMenuItem.Text = "POSTA";
-            this.pOSTAToolStripMenuItem.Click += new System.EventHandler(this.pOSTAToolStripMenuItem_Click);
             // 
             // Form2
             // 

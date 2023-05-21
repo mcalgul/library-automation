@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.OleDb;
 using Kütüphane_Otomasyonu.Properties;
@@ -15,61 +9,68 @@ namespace Kütüphane_Otomasyonu
 {
     public partial class Form5 : Form
     {
-        public static string urlDatabase = ConnDatebase.homeUrl;
-        static string baglantiYolu = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + urlDatabase;
-        static OleDbConnection baglanti = new OleDbConnection(baglantiYolu);
+        private static readonly string urlDatabase = ConnDatabase.HomeUrl;
+        private static readonly string connectionString = $"Provider=Microsoft.Jet.OLEDB.4.0;Data Source={urlDatabase}";
+        private static readonly OleDbConnection connection = new OleDbConnection(connectionString);
 
         public Form5()
         {
             InitializeComponent();
-            üyeleriListele();
+            RefreshDataGridView();
+            SetControlsVisibility(false);
+        }
 
-            button1.Visible = false;
+        private void Form5_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void SetControlsVisibility(bool visible)
+        {
+            button1.Visible = visible;
+            button2.Visible = visible;
+            button3.Visible = visible;
+            button4.Visible = visible;
+            label1.Visible = visible;
+            label2.Visible = visible;
+            label3.Visible = visible;
+            label4.Visible = visible;
+            textBox1.Visible = visible;
+            textBox2.Visible = visible;
+            textBox3.Visible = visible;
+            textBox4.Visible = visible;
+        }
+
+        private void üYEEKLEToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetControlsVisibility(true);
+            ClearTextBoxes();
+            RefreshDataGridView();
             button2.Visible = false;
             button3.Visible = false;
             button4.Visible = false;
-            label1.Visible = false;
-            label2.Visible = false;
-            label3.Visible = false;
-            label4.Visible = false;
-            textBox1.Visible = false;
+        }
+
+        private void üYESİLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetControlsVisibility(true);
+            ClearTextBoxes();
+            RefreshDataGridView();
+            button1.Visible = false;
+            button3.Visible = false;
+            button4.Visible = false;
             textBox2.Visible = false;
             textBox3.Visible = false;
             textBox4.Visible = false;
         }
 
-        private void Form5_Load(object sender, EventArgs e)
+        private void üYEARAToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void üYEEKLEToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            button1.Visible = true;
-            button2.Visible = false;
-            button3.Visible = false;
-            button4.Visible = false;
-            label1.Visible = true;
-            label2.Visible = true;
-            label3.Visible = true;
-            label4.Visible = true;
-            textBox1.Visible = true;
-            textBox2.Visible = true;
-            textBox3.Visible = true;
-            textBox4.Visible = true;
-        }
-
-        private void üYESİLToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+            SetControlsVisibility(true);
+            ClearTextBoxes();
+            RefreshDataGridView();
             button1.Visible = false;
-            button2.Visible = true;
-            button3.Visible = false;
+            button2.Visible = false;
             button4.Visible = false;
-            label1.Visible = true;
-            label2.Visible = false;
-            label3.Visible = false;
-            label4.Visible = false;
-            textBox1.Visible = true;
             textBox2.Visible = false;
             textBox3.Visible = false;
             textBox4.Visible = false;
@@ -77,39 +78,17 @@ namespace Kütüphane_Otomasyonu
 
         private void üYEGÜNCELLEToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            SetControlsVisibility(true);
+            ClearTextBoxes();
+            RefreshDataGridView();
             button1.Visible = false;
             button2.Visible = false;
             button3.Visible = false;
-            button4.Visible = true;
-            label1.Visible = true;
-            label2.Visible = true;
-            label3.Visible = true;
-            label4.Visible = true;
-            textBox1.Visible = true;
-            textBox2.Visible = true;
-            textBox3.Visible = true;
-            textBox4.Visible = true;
-        }
-
-        private void üYEARAToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            button1.Visible = false;
-            button2.Visible = false;
-            button3.Visible = true;
-            button4.Visible = false;
-            label1.Visible = true;
-            label2.Visible = false;
-            label3.Visible = false;
-            label4.Visible = false;
-            textBox1.Visible = true;
-            textBox2.Visible = false;
-            textBox3.Visible = false;
-            textBox4.Visible = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == null || textBox2.Text == null || textBox3.Text == null || textBox4.Text == null)
+            if (IsTextBoxEmpty(textBox1, textBox2, textBox3, textBox4))
             {
                 MessageBox.Show("LÜTFEN TÜM ALANLARI DOLDURUN!");
             }
@@ -119,17 +98,16 @@ namespace Kütüphane_Otomasyonu
                 string ÜyeSoyadı = textBox2.Text;
                 string Meslek = textBox3.Text;
                 int TelNo = Convert.ToInt32(textBox4.Text);
-
                 B10.üyeEkle(ÜyeAdı, ÜyeSoyadı, Meslek, TelNo);
-                MessageBox.Show("ÜYE KAYDI  BAŞARILI...");
-                üyeleriListele();
-                clearText();
+                MessageBox.Show("ÜYE SİSTEME BAŞARIYLA EKLENDİ...");
+                RefreshDataGridView();
+                ClearTextBoxes();
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == null)
+            if (IsTextBoxEmpty(textBox1))
             {
                 MessageBox.Show("LÜTFEN TÜM ALANLARI DOLDURUN!");
             }
@@ -137,15 +115,35 @@ namespace Kütüphane_Otomasyonu
             {
                 string ÜyeAdı = textBox1.Text;
                 B10.üyeSil(ÜyeAdı);
-                MessageBox.Show("İSTENİLEN ÜYE BAŞARIYLA SİLİNDİ...");
-                üyeleriListele();
-                clearText();
+                MessageBox.Show("İstenilen Üye Başarıyla Silindi...");
+                ClearTextBoxes();
+                RefreshDataGridView();
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (IsTextBoxEmpty(textBox1))
+            {
+                MessageBox.Show("LÜTFEN TÜM ALANLARI DOLDURUN!");
+            }
+            else
+            {
+                string uyeAdı = textBox1.Text;
+                string query = $"SELECT * FROM Üyeler WHERE ÜyeAdı LIKE '%{uyeAdı}%'";
+                using (OleDbDataAdapter adapter = new OleDbDataAdapter(query, connection))
+                {
+                    DataSet dataSet = new DataSet();
+                    adapter.Fill(dataSet);
+                    dataGridView1.DataSource = dataSet.Tables[0];
+                    ClearTextBoxes();
+                }
             }
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == null || textBox2.Text == null || textBox3.Text == null || textBox4.Text == null)
+            if (IsTextBoxEmpty(textBox1, textBox2, textBox3, textBox4))
             {
                 MessageBox.Show("LÜTFEN TÜM ALANLARI DOLDURUN!");
             }
@@ -156,40 +154,41 @@ namespace Kütüphane_Otomasyonu
                 string Meslek = textBox3.Text;
                 int TelNo = Convert.ToInt32(textBox4.Text);
                 B10.üyeGuncelle(ÜyeAdı, ÜyeSoyadı, Meslek, TelNo);
-                MessageBox.Show("SEÇİLEN KİŞİ BAŞARIYLA GÜNCELLENDİ...");
-                üyeleriListele();
-                clearText();
+                MessageBox.Show("SEÇİLEN Üye BAŞARIYLA GÜNCELLENDİ...");
+                ClearTextBoxes();
+                RefreshDataGridView();
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private bool IsTextBoxEmpty(params TextBox[] textBoxes)
         {
-            if (textBox1.Text == null)
+            foreach (TextBox textBox in textBoxes)
             {
-                MessageBox.Show("LÜTFEN TÜM ALANLARI DOLDURUN!");
+                if (string.IsNullOrWhiteSpace(textBox.Text))
+                    return true;
             }
-            else
+            return false;
+        }
+
+        private void ClearTextBoxes()
+        {
+            foreach (Control control in Controls)
             {
-                baglanti.Open();
-                string veri = "select * from Üyeler where ÜyeAdı like '%" + textBox1.Text + "%'";
-                OleDbCommand komut = new OleDbCommand(veri, baglanti);
-                OleDbDataAdapter adaptor = new OleDbDataAdapter(komut);
-                DataSet DS = new DataSet();
-                adaptor.Fill(DS);
-                dataGridView1.DataSource = DS.Tables[0];
-                baglanti.Close();
-                clearText();
+                if (control is TextBox textBox)
+                    textBox.Clear();
             }
         }
 
-        public void üyeleriListele()
+        private void RefreshDataGridView()
         {
-            string veri = "select*from Üyeler";
-            OleDbDataAdapter adaptor = new OleDbDataAdapter(veri, baglanti);
-            DataSet ds = new DataSet();
-            adaptor.Fill(ds);
-            dataGridView1.DataSource = ds.Tables[0];
+            using (OleDbDataAdapter adapter = new OleDbDataAdapter("SELECT * FROM Üyeler", connection))
+            {
+                DataSet dataSet = new DataSet();
+                adapter.Fill(dataSet);
+                dataGridView1.DataSource = dataSet.Tables[0];
+            }
         }
+
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             int secilen = dataGridView1.SelectedCells[0].RowIndex;
@@ -202,24 +201,14 @@ namespace Kütüphane_Otomasyonu
             textBox2.Text = ÜyeSoyadı;
             textBox3.Text = Meslek;
             textBox4.Text = TelNo.ToString();
-            üyeleriListele();
-        }
-
-        public void clearText()
-        {
-            textBox1.Clear();
-            textBox2.Clear();
-            textBox3.Clear();
-            textBox4.Clear();
+            RefreshDataGridView();
         }
 
         private void mENÜToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form5 kapat = new Form5();
-            kapat.Close();
-            Form2 ac = new Form2();
-            ac.Show();
-            this.Hide();
+            Close();
+            Form2 form2 = new Form2();
+            form2.Show();
         }
 
         private void çIKIŞToolStripMenuItem_Click(object sender, EventArgs e)

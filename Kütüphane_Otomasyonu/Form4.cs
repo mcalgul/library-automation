@@ -1,79 +1,79 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.OleDb;
 using Kütüphane_Otomasyonu.Properties;
+using System.Reflection.Emit;
 
 namespace Kütüphane_Otomasyonu
 {
     public partial class Form4 : Form
     {
-        public static string urlDatabase = ConnDatebase.homeUrl;
-        static string baglantiYolu = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + urlDatabase;
-        static OleDbConnection baglanti = new OleDbConnection(baglantiYolu);
+        private static readonly string urlDatabase = ConnDatabase.HomeUrl;
+        private static readonly string connectionString = $"Provider=Microsoft.Jet.OLEDB.4.0;Data Source={urlDatabase}";
+        private static readonly OleDbConnection connection = new OleDbConnection(connectionString);
 
         public Form4()
         {
             InitializeComponent();
-            emanetListele();
+            RefreshDataGridView();
+            SetControlsVisibility(false);
+        }
 
-            button1.Visible = false;
+        private void Form4_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void SetControlsVisibility(bool visible)
+        {
+            button1.Visible = visible;
+            button2.Visible = visible;
+            button3.Visible = visible;
+            button4.Visible = visible;
+            label1.Visible = visible;
+            label2.Visible = visible;
+            label3.Visible = visible;
+            label4.Visible = visible;
+            label5.Visible = visible;
+            textBox1.Visible = visible;
+            textBox2.Visible = visible;
+            textBox3.Visible = visible;
+            textBox4.Visible = visible;
+            dateTimePicker1.Visible = visible;
+        }
+
+        private void eMANETKİTAPEKLEToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetControlsVisibility(true);
+            ClearTextBoxes();
+            RefreshDataGridView();
             button2.Visible = false;
             button3.Visible = false;
             button4.Visible = false;
-            label1.Visible = false;
-            label2.Visible = false;
-            label3.Visible = false;
-            label4.Visible = false;
-            label5.Visible = false;
-            textBox1.Visible = false;
+        }
+
+        private void eMANETKİTAPSİLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetControlsVisibility(true);
+            ClearTextBoxes();
+            RefreshDataGridView();
+            button1.Visible = false;
+            button3.Visible = false;
+            button4.Visible = false;
             textBox2.Visible = false;
             textBox3.Visible = false;
             textBox4.Visible = false;
             dateTimePicker1.Visible = false;
         }
 
-        private void Form4_Load(object sender, EventArgs e)
+        private void eMANETKİTAPARAToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void eMANETKİTAPEKLEToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            button1.Visible = true;
-            button2.Visible = false;
-            button3.Visible = false;
-            button4.Visible = false;
-            label1.Visible = true;
-            label2.Visible = true;
-            label3.Visible = true;
-            label4.Visible = true;
-            label5.Visible = true;
-            textBox1.Visible = true;
-            textBox2.Visible = true;
-            textBox3.Visible = true;
-            textBox4.Visible = true;
-            dateTimePicker1.Visible = true;
-        }
-
-        private void eMANETKİTAPSİLToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+            SetControlsVisibility(true);
+            ClearTextBoxes();
+            RefreshDataGridView();
             button1.Visible = false;
-            button2.Visible = true;
-            button3.Visible = false;
+            button2.Visible = false;
             button4.Visible = false;
-            label1.Visible = true;
-            label2.Visible = false;
-            label3.Visible = false;
-            label4.Visible = false;
-            label5.Visible = false;
-            textBox1.Visible = true;
             textBox2.Visible = false;
             textBox3.Visible = false;
             textBox4.Visible = false;
@@ -82,43 +82,17 @@ namespace Kütüphane_Otomasyonu
 
         private void eMANETKİTAPGÜNCELLEToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            SetControlsVisibility(true);
+            ClearTextBoxes();
+            RefreshDataGridView();
             button1.Visible = false;
             button2.Visible = false;
             button3.Visible = false;
-            button4.Visible = true;
-            label1.Visible = true;
-            label2.Visible = true;
-            label3.Visible = true;
-            label4.Visible = true;
-            label5.Visible = true;
-            textBox1.Visible = true;
-            textBox2.Visible = true;
-            textBox3.Visible = true;
-            textBox4.Visible = true;
-            dateTimePicker1.Visible = true;
-        }
-
-        private void eMANETKİTAPARAToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            button1.Visible = false;
-            button2.Visible = false;
-            button3.Visible = true;
-            button4.Visible = false;
-            label1.Visible = true;
-            label2.Visible = false;
-            label3.Visible = false;
-            label4.Visible = false;
-            label5.Visible = false;
-            textBox1.Visible = true;
-            textBox2.Visible = false;
-            textBox3.Visible = false;
-            textBox4.Visible = false;
-            dateTimePicker1.Visible = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == null || textBox2.Text == null || textBox3.Text == null || textBox4.Text == null) 
+            if (IsTextBoxEmpty(textBox1, textBox2, textBox3, textBox4))
             {
                 MessageBox.Show("LÜTFEN TÜM ALANLARI DOLDURUN!");
             }
@@ -131,30 +105,50 @@ namespace Kütüphane_Otomasyonu
                 string AldığıTarih = dateTimePicker1.Text;
                 B10.emanetEkle(KitapAdı, KitapNo, ÜyeAdı, ÜyeNo, AldığıTarih);
                 MessageBox.Show("İSTENİLEN KİTAP EMANETLER LİSTESİNE BAŞARIYLA EKLENDİ...");
-                emanetListele();
-                clearText();
+                RefreshDataGridView();
+                ClearTextBoxes();
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == null)
+            if (IsTextBoxEmpty(textBox1))
             {
                 MessageBox.Show("LÜTFEN TÜM ALANLARI DOLDURUN!");
             }
             else
             {
-                string KitapAdı = textBox1.Text;
-                B10.emanetSil(KitapAdı);
-                MessageBox.Show("İSTENİLEN KİTAP BAŞARIYLA SİLİNDİ...");
-                clearText();
-                emanetListele();
+                string kitapAdı = textBox1.Text;
+                B10.emanetSil(kitapAdı);
+                MessageBox.Show("İstenilen Kitap Başarıyla Silindi...");
+                ClearTextBoxes();
+                RefreshDataGridView();
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (IsTextBoxEmpty(textBox1))
+            {
+                MessageBox.Show("LÜTFEN TÜM ALANLARI DOLDURUN!");
+            }
+            else
+            {
+                string emanet = textBox1.Text;
+                string query = $"SELECT * FROM Emanetler WHERE KitapAdı LIKE '%{emanet}%'";
+                using (OleDbDataAdapter adapter = new OleDbDataAdapter(query, connection))
+                {
+                    DataSet dataSet = new DataSet();
+                    adapter.Fill(dataSet);
+                    dataGridView1.DataSource = dataSet.Tables[0];
+                    ClearTextBoxes();
+                }
             }
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == null || textBox2.Text == null || textBox3.Text == null || textBox4.Text == null)
+            if (IsTextBoxEmpty(textBox1, textBox2, textBox3, textBox4))
             {
                 MessageBox.Show("LÜTFEN TÜM ALANLARI DOLDURUN!");
             }
@@ -167,39 +161,40 @@ namespace Kütüphane_Otomasyonu
                 string AldığıTarih = dateTimePicker1.Text;
                 B10.emanetGuncelle(KitapAdı, KitapNo, ÜyeAdı, ÜyeNo, AldığıTarih);
                 MessageBox.Show("SEÇİLEN KİTAP BAŞARIYLA GÜNCELLENDİ...");
-                clearText();
-                emanetListele();
+                ClearTextBoxes();
+                RefreshDataGridView();
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private bool IsTextBoxEmpty(params TextBox[] textBoxes)
         {
-            if(textBox1.Text == null)
+            foreach (TextBox textBox in textBoxes)
             {
-                MessageBox.Show("LÜTFEN TÜM ALANLARI DOLDURUN!");
+                if (string.IsNullOrWhiteSpace(textBox.Text))
+                    return true;
             }
-            else
+            return false;
+        }
+
+        private void ClearTextBoxes()
+        {
+            foreach (Control control in Controls)
             {
-                baglanti.Open();
-                string veri = "select * from Emanetler where KitapAdı like '%" + textBox1.Text + "%'";
-                OleDbCommand komut = new OleDbCommand(veri, baglanti);
-                OleDbDataAdapter adaptor = new OleDbDataAdapter(komut);
-                DataSet DS = new DataSet();
-                adaptor.Fill(DS);
-                dataGridView1.DataSource = DS.Tables[0];
-                baglanti.Close();
-                clearText();
+                if (control is TextBox textBox)
+                    textBox.Clear();
             }
         }
 
-        public void emanetListele()
+        private void RefreshDataGridView()
         {
-            string veri = "select*from Emanetler";
-            OleDbDataAdapter adaptor = new OleDbDataAdapter(veri, baglanti);
-            DataSet ds = new DataSet();
-            adaptor.Fill(ds);
-            dataGridView1.DataSource = ds.Tables[0];
+            using (OleDbDataAdapter adapter = new OleDbDataAdapter("SELECT * FROM Emanetler", connection))
+            {
+                DataSet dataSet = new DataSet();
+                adapter.Fill(dataSet);
+                dataGridView1.DataSource = dataSet.Tables[0];
+            }
         }
+
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             int secilen = dataGridView1.SelectedCells[0].RowIndex;
@@ -214,25 +209,16 @@ namespace Kütüphane_Otomasyonu
             textBox3.Text = ÜyeAdı;
             textBox4.Text = ÜyeNo.ToString();
             dateTimePicker1.Text = AldığıTarih;
-            emanetListele();
-        }
-
-        public void clearText()
-        {
-            textBox1.Clear();
-            textBox2.Clear();
-            textBox3.Clear();
-            textBox4.Clear();
+            RefreshDataGridView();
         }
 
         private void mENÜToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form4 kapat = new Form4();
-            kapat.Close();
-            Form2 ac = new Form2();
-            ac.Show();
-            this.Hide();
+            Close();
+            Form2 form2 = new Form2();
+            form2.Show();
         }
+
         private void çIKIŞToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();

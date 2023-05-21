@@ -140,7 +140,6 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.DeepSkyBlue;
-            this.button1.Enabled = false;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.button1.Location = new System.Drawing.Point(331, 266);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
@@ -217,7 +216,6 @@
             // button2
             // 
             this.button2.BackColor = System.Drawing.Color.Yellow;
-            this.button2.Enabled = false;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.button2.Location = new System.Drawing.Point(331, 330);
             this.button2.Margin = new System.Windows.Forms.Padding(2);
@@ -231,7 +229,6 @@
             // button3
             // 
             this.button3.BackColor = System.Drawing.Color.Fuchsia;
-            this.button3.Enabled = false;
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.button3.Location = new System.Drawing.Point(331, 458);
             this.button3.Margin = new System.Windows.Forms.Padding(2);
@@ -270,7 +267,6 @@
             // button4
             // 
             this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button4.Enabled = false;
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.button4.Location = new System.Drawing.Point(331, 394);
             this.button4.Margin = new System.Windows.Forms.Padding(2);
